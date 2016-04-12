@@ -45,32 +45,25 @@ $("#back-btn").click(function () {
     $("#auth-view-mode").show();
 });
 
+
 $("search-address-btn").click(function () {
-    console.log("I'm pressing the search button");
+   var address = document.getElementById("address").value;
+   console.log(address);
+   console.log("Is this thing on?");
+
+   geocoder.geocode({ 'address': address }, function (results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+           map.setCenter(results[0].geometry.location);
+           marker.setPosition(results[0].geometry.location);
+           panorama.setPosition(results[0].geometry.location);
+           panorama.setPov({
+               heading: 0,
+               pitch: 0,
+               zoom: 1
+
+           });
+       } else {
+           alert("Geocode was not successful for the following reasons: " + status);
+       }
+   });
 });
-
-
-
-
-
-//$("search-address-btn").click(function () {
-//    var address = document.getElementById("address").value;
-//    console.log(address);
-//    console.log("Is this thing on?");
-
-//    geocoder.geocode({ 'address': address }, function (results, status) {
-//        if (status == google.maps.GeocoderStatus.OK) {
-//            map.setCenter(results[0].geometry.location);
-//            marker.setPosition(results[0].geometry.location);
-//            panorama.setPosition(results[0].geometry.location);
-//            panorama.setPov({
-//                heading: 0,
-//                pitch: 0,
-//                zoom: 1
-
-//            });
-//        } else {
-//            alert("Geocode was not successful for the following reasons: " + status);
-//        }
-//    });
-//});
